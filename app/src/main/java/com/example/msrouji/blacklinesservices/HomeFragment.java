@@ -20,9 +20,12 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by msrouji on 02/12/2017.
@@ -36,10 +39,9 @@ public class HomeFragment extends Fragment {
 
 
     private GoogleMap mMap;
-    private Location mLastLocation;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    private mapInterfaces mapInterfaces;
+    private Location lastKnowLocation = null;
 
 
     private class mapInterfaces implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
@@ -50,9 +52,12 @@ public class HomeFragment extends Fragment {
             mLocationRequest.setInterval(UPDATE_INTERVAL);
             mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
             mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-            if (ContextCompat.checkSelfPermission(getContext(),
+            if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
+//                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(tmp.getLatitude(), tmp.getLongitude()), 18.0f, 0, 0)));
+
+//                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 18.0f, 0, 0)));
 //                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 //                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest);
             }
@@ -92,7 +97,9 @@ public class HomeFragment extends Fragment {
 
                 @Override
                 public void onMyLocationChange(Location arg0) {
-
+                    if (lastKnowLocation == null)
+                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(new LatLng(arg0.getLatitude(), arg0.getLongitude()), 18.0f, 0, 0)));
+                    lastKnowLocation = arg0;
                 }
             });
         }

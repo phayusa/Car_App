@@ -18,9 +18,9 @@ import java.net.URL;
 
 
 public class TokenRefresh extends AsyncTask<String,Void,String> {
-    private Server_Listener data;
+    private ServerListener data;
 
-    public TokenRefresh(Server_Listener data) {
+    public TokenRefresh(ServerListener data) {
         this.data = data;
     }
 

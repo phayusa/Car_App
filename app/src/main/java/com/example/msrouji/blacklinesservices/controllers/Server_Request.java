@@ -18,19 +18,19 @@ public class Server_Request extends AsyncTask<String,Void,Object> {
 
     private HttpURLConnection connection;
     private String method;
-    private Server_Listener end_data;
+    private ServerListener end_data;
 
-    public Server_Request(String method, String url, Server_Listener listener) throws java.io.IOException {
+    public Server_Request(String method, String url, ServerListener listener) throws java.io.IOException {
         try {
             this.method = method;
             connection = ((HttpURLConnection) new URL(url).openConnection());
             connection.setRequestMethod(method);
-            connection.setRequestProperty("Authorization", "JWT " + LoginActivity.token);
+            connection.setRequestProperty("Authorization", "JWT " + LoginActivity.getToken());
             if (method.equals("POST") || method.equals("PUT")) {
                 connection.setDoOutput(true);
                 connection.setDoInput(true);
             }
-            System.err.println("token "+LoginActivity.token);
+            System.err.println("token "+LoginActivity.getToken());
             end_data = listener;
 
         } catch (java.io.IOException e) {

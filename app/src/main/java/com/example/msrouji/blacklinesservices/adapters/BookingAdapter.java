@@ -22,10 +22,10 @@ import java.util.ArrayList;
  * Created by msrouji on 17/11/2017.
  */
 
-public class Booking_Adapter extends ArrayAdapter<Booking> {
+public class BookingAdapter extends ArrayAdapter<Booking> {
     private ArrayList<Booking> data;
 
-    public Booking_Adapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Booking> objects) {
+    public BookingAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Booking> objects) {
         super(context, resource, objects);
         data = objects;
     }

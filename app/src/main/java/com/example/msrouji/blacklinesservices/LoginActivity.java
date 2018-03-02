@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -32,7 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.msrouji.blacklinesservices.controllers.Server_Listener;
+import com.example.msrouji.blacklinesservices.controllers.ServerListener;
 import com.example.msrouji.blacklinesservices.controllers.TokenRefresh;
 
 import org.json.JSONException;
@@ -47,7 +46,6 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static android.Manifest.permission.INTERNET;
@@ -80,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private static boolean in_Debug = false;
 
-    public static String token;
+    private static String token;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -363,7 +361,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    private class ReceiveToken implements Server_Listener{
+    private class ReceiveToken implements ServerListener {
         @Override
         public void onDataListener(Object o) {
             if (o == null)
@@ -445,17 +443,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 e.printStackTrace();
                 return false;
             }
-
-//            for (String credential : DUMMY_CREDENTIALS) {
-//                String[] pieces = credential.split(":");
-//                if (pieces[0].equals(mEmail)) {
-//                    // Account exists, return true if the password matches.
-//                    return pieces[1].equals(mPassword);
-//                }
-//            }
-//
-//            // TODO: register the new account here.
-//            return true;
         }
 
         @Override
@@ -487,6 +474,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    public static String getToken() {
+        return token;
     }
 }
 

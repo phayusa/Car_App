@@ -22,10 +22,10 @@ import java.util.ArrayList;
  * Created by msrouji on 17/11/2017.
  */
 
-public class Vehicle_Adapter extends ArrayAdapter<Car> {
+public class VehicleAdapter extends ArrayAdapter<Car> {
     private ArrayList<Car> data;
 
-    public Vehicle_Adapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Car> objects) {
+    public VehicleAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Car> objects) {
         super(context, resource, objects);
         data = objects;
     }

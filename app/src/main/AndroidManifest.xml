@@ -49,10 +49,6 @@
 
         <activity android:name=".CarDetailActivity" />
 
-        <activity
-            android:name=".DriveActivity"
-            android:label="@string/title_activity_drive" />
-
         <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -42,6 +42,7 @@ public class MenuActivity extends AppCompatActivity {
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, new AccountFragment()).commit();
                 return true;
             case R.id.navigation_runs:
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, new DriveFragment()).commit();
                 return true;
             default:
                 return false;
@@ -129,6 +130,9 @@ public class MenuActivity extends AppCompatActivity {
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(onNavigationItemSelectedListener);
+
+        // Launch by default the home fragment
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
     }
 
     public Location getLastKnownLocation() {

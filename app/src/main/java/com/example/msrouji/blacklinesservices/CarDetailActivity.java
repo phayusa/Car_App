@@ -2,7 +2,6 @@ package com.example.msrouji.blacklinesservices;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.PowerManager;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
-import com.example.msrouji.blacklinesservices.controllers.Server_Listener;
+import com.example.msrouji.blacklinesservices.controllers.ServerListener;
 import com.example.msrouji.blacklinesservices.controllers.Server_Request;
 import com.example.msrouji.blacklinesservices.models.Car;
 import com.squareup.picasso.Picasso;
@@ -65,7 +64,7 @@ public class CarDetailActivity extends AppCompatActivity {
         }
     }
 
-    private class listener implements Server_Listener {
+    private class listener implements ServerListener {
         @Override
         public void onDataListener(Object o) {
             if (o == null){

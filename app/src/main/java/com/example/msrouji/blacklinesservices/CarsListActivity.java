@@ -3,13 +3,12 @@ package com.example.msrouji.blacklinesservices;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.msrouji.blacklinesservices.adapters.Vehicle_Adapter;
-import com.example.msrouji.blacklinesservices.controllers.Server_Listener;
+import com.example.msrouji.blacklinesservices.adapters.VehicleAdapter;
+import com.example.msrouji.blacklinesservices.controllers.ServerListener;
 import com.example.msrouji.blacklinesservices.controllers.Server_Request;
 import com.example.msrouji.blacklinesservices.models.Car;
 import com.google.gson.Gson;
@@ -65,7 +64,7 @@ public class CarsListActivity extends BaseActivity {
         }
     }
 
-    private class list_loader implements Server_Listener {
+    private class list_loader implements ServerListener {
         @Override
         public void onDataListener(Object o) {
             System.err.println(o);
@@ -81,7 +80,7 @@ public class CarsListActivity extends BaseActivity {
 //            }
 //            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, registrations);
 //            list.setAdapter(adapter);
-            Vehicle_Adapter cars_adapter = new Vehicle_Adapter(getApplicationContext(), 0, new ArrayList<Car>(Arrays.asList(cars)));
+            VehicleAdapter cars_adapter = new VehicleAdapter(getApplicationContext(), 0, new ArrayList<Car>(Arrays.asList(cars)));
             list.setAdapter(cars_adapter);
             list.setOnItemClickListener(new list_adapter_listener());
 //            System.err.println(cars[0].getRegistration());

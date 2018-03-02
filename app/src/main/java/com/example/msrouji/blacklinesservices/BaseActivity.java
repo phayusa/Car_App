@@ -1,10 +1,7 @@
 package com.example.msrouji.blacklinesservices;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,10 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
-import com.example.msrouji.blacklinesservices.controllers.Server_Listener;
+import com.example.msrouji.blacklinesservices.controllers.ServerListener;
 import com.example.msrouji.blacklinesservices.controllers.Server_Request;
 
 /**
@@ -70,7 +66,7 @@ public class BaseActivity extends AppCompatActivity
         return true;
     }
 
-    private class ExitListener implements Server_Listener {
+    private class ExitListener implements ServerListener {
         @Override
         public void onDataListener(Object o) {
             if (o == null) {
