@@ -464,7 +464,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), MenuActivity.class));
 
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {

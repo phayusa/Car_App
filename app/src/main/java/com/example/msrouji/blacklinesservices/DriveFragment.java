@@ -15,7 +15,7 @@ public class DriveFragment extends Fragment {
 //        ViewStub main_view = ((ViewStub) findViewById(R.id.view_main));
 //
 //        // Set the ressource with the correct view
-//        main_view.setLayoutResource(R.layout.detail_fragment);
+//        main_view.setLayoutResource(R.layout.account_fragment);
 //        main_view.inflate();
 //
 //        current_id =  R.id.navigation_home;

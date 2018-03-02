@@ -106,14 +106,14 @@ public class BaseActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item)  {
-        // Handle navigation view item clicks here.
+        // Handle bottomNavigationView view item clicks here.
         int id = item.getItemId();
-        System.err.println("sisoskosko");
-        System.err.println(id);
-        System.err.println(R.id.drive_menu);
-        if (id == R.id.drive_menu) {
-            startActivity(new Intent(getApplicationContext(), CarsListActivity.class));
-        }
+//        System.err.println("sisoskosko");
+//        System.err.println(id);
+//        System.err.println(R.id.drive_menu);
+//        if (id == R.id.drive_menu) {
+//            startActivity(new Intent(getApplicationContext(), CarsListActivity.class));
+//        }
 
 //        if (id == R.id.nav_camera) {
 //            // Handle the camera action

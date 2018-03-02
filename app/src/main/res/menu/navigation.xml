@@ -7,12 +7,12 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_account"
         android:icon="@drawable/user_account_box"
         android:title="@string/title_dashboard" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_runs"
         android:icon="@drawable/sedan_car_model"
         android:title="@string/title_notifications" />
 

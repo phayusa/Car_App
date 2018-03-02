@@ -27,9 +27,9 @@ public class CarsListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ViewStub stub = ((ViewStub) findViewById(R.id.view_main));
-        stub.setLayoutResource(R.layout.content_drive);
-        stub.inflate();
+//        ViewStub stub = ((ViewStub) findViewById(R.id.view_main));
+//        stub.setLayoutResource(R.layout.content_drive);
+//        stub.inflate();
 
         gson = new Gson();
 

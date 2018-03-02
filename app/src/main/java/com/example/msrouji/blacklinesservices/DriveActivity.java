@@ -40,10 +40,10 @@ public class DriveActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_account:
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_runs:
                     mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
@@ -58,8 +58,8 @@ public class DriveActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drive);
 
 //        mTextMessage = (TextView) findViewById(R.id.message);
-//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+//        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         gson = new Gson();
         list = ((ListView) findViewById(android.R.id.list));
