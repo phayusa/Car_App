@@ -27,7 +27,7 @@ public class TokenRefresh extends AsyncTask<String,Void,String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            URL url = new URL(strings[0] + "user/refresh/");
+            URL url = new URL(strings[0] + "conn/refresh/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");

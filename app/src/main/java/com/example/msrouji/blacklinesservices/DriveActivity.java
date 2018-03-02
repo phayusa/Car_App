@@ -100,7 +100,7 @@ public class DriveActivity extends AppCompatActivity {
 //            intent.putExtra(key_id_vehicle, selected_car);
 //            startActivity(intent);
             Booking selected_booking = ((Booking) adapterView.getItemAtPosition(i));
-            String uri = "https://waze.com/ul?ll="+selected_booking.getDestination()+"&navigate=yes";
+            String uri = "https://waze.com/ul?ll=" + selected_booking.getDestination() + "&navigate=yes";
             startActivity(new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri)));
         }
     }
@@ -116,6 +116,10 @@ public class DriveActivity extends AppCompatActivity {
 //                    Toast.makeText(getApplicationContext(), "Une erreur est survenue : " + o, Toast.LENGTH_SHORT).show();
 //                    return;
 //            }
+            if (o.equals("Bad Request")) {
+                Toast.makeText(getApplicationContext(), "Sélectionner une voiture avant", Toast.LENGTH_SHORT).show();
+                finish();
+            }
             System.err.println(o);
             Booking[] bookings = gson.fromJson(o.toString(), Booking[].class);
             Booking_Adapter cars_adapter = new Booking_Adapter(getApplicationContext(), R.layout.activity_drive,

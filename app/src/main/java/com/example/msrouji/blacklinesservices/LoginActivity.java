@@ -392,8 +392,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return true;
 
             try {
-                URL url = new URL(url_base+"user/login/");
-                System.err.println(url_base+"user/login/");
+                URL url = new URL(url_base+"conn/login/");
+                System.err.println(url_base+"conn/login/");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
