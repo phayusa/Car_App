@@ -39,19 +39,14 @@
                     tools:layout_editor_absoluteY="8dp" />
 
                 <TextView
+                    android:id="@+id/driver"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:text="Dwayne Jownhson"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/colorTextInvert"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -77,19 +72,14 @@
                     tools:layout_editor_absoluteY="8dp" />
 
                 <TextView
+                    android:id="@+id/car"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_gravity="center"
-                    android:text="AT-208-XL"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/colorTextInvert"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
@@ -98,112 +88,71 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:padding="30dp"
             tools:layout_editor_absoluteX="73dp"
             tools:layout_editor_absoluteY="266dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
+            <Button
+                android:id="@+id/info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@android:color/transparent"
                 android:text="@string/action_modify_info"
                 android:textAlignment="center"
-                android:textSize="25dp" />
-        </LinearLayout>
+                android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="89dp"
-            tools:layout_editor_absoluteY="327dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
+            <Button
+                android:id="@+id/change_car"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
                 android:text="@string/action_change_car"
                 android:textAlignment="center"
-                android:textSize="25dp" />
-        </LinearLayout>
+                android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="129dp"
-            tools:layout_editor_absoluteY="390dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
+            <Button
+                android:id="@+id/documents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
                 android:text="@string/action_documents"
                 android:textAlignment="center"
-                android:textSize="25dp" />
-        </LinearLayout>
+                android:textSize="20sp" />
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="130dp"
-            tools:layout_editor_absoluteY="456dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
+            <Button
+                android:id="@+id/history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
                 android:text="@string/action_history"
                 android:textAlignment="center"
-                android:textSize="25dp" />
-        </LinearLayout>
+                android:textSize="20sp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            tools:layout_editor_absoluteX="130dp"
-            tools:layout_editor_absoluteY="456dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
+            <Button
+                android:id="@+id/logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
                 android:text="@string/action_logout"
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
     </LinearLayout>

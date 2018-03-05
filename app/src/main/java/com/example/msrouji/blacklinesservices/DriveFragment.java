@@ -34,7 +34,7 @@ public class DriveFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //            Toast.makeText(getApplicationContext(), "Pushed " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(getApplicationContext(), CarDetailActivity.class);
+//            Intent intent = new Intent(getApplicationContext(), CarDetailFragment.class);
 //            Car selected_car = ((Car) adapterView.getItemAtPosition(i));
 //            intent.putExtra(key_id_vehicle, selected_car);
 //            startActivity(intent);

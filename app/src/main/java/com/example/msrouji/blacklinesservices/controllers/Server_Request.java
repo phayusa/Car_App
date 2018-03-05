@@ -14,7 +14,7 @@ import java.net.URL;
  * Created by msrouji on 17/11/2017.
  */
 
-public class Server_Request extends AsyncTask<String,Void,Object> {
+public class Server_Request extends AsyncTask<String, Void, Object> {
 
     private HttpURLConnection connection;
     private String method;
@@ -30,7 +30,6 @@ public class Server_Request extends AsyncTask<String,Void,Object> {
                 connection.setDoOutput(true);
                 connection.setDoInput(true);
             }
-            System.err.println("token "+LoginActivity.getToken());
             end_data = listener;
 
         } catch (java.io.IOException e) {
@@ -42,7 +41,7 @@ public class Server_Request extends AsyncTask<String,Void,Object> {
     @Override
     protected Object doInBackground(String... data) {
         try {
-            if (method.equals("PUT") || method.equals("POST")){
+            if (method.equals("PUT") || method.equals("POST")) {
 
                 OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
                 writer.write(data[0]);
@@ -62,6 +61,7 @@ public class Server_Request extends AsyncTask<String,Void,Object> {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         end_data.onDataListener(o);
+        System.err.println("ssss " + o);
     }
 }
 

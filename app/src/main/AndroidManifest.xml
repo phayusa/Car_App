@@ -19,9 +19,11 @@
 
     <application
         android:allowBackup="true"
+        android:configChanges="orientation|keyboardHidden"
         android:icon="@mipmap/logo_no_font"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo_no_font"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -42,20 +44,20 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name">
-
-        </activity>
-
-        <activity android:name=".CarsListActivity" />
-
-        <activity android:name=".CarDetailActivity" />
-
-        <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".CarListFragment" />
+
+        <activity android:name=".CarDetailFragment" />
+
+        <activity android:name=".MenuActivity" />
+
+        <activity android:name=".CarActivity" />
 
     </application>
 

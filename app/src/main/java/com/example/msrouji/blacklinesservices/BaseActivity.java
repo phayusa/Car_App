@@ -52,6 +52,8 @@ public class BaseActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer == null)
+            return;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -90,7 +92,7 @@ public class BaseActivity extends AppCompatActivity
 
         if (id == R.id.action_logout) {
             try {
-                new Server_Request("GET", getString(R.string.url_server) + "conn/logout/android/", new ExitListener()).execute();
+                new Server_Request("GET", getString(R.string.url_server) + "db/logout/", new ExitListener()).execute();
             } catch (java.io.IOException e) {
                 e.printStackTrace();
             }
@@ -108,7 +110,7 @@ public class BaseActivity extends AppCompatActivity
 //        System.err.println(id);
 //        System.err.println(R.id.drive_menu);
 //        if (id == R.id.drive_menu) {
-//            startActivity(new Intent(getApplicationContext(), CarsListActivity.class));
+//            startActivity(new Intent(getApplicationContext(), CarListFragment.class));
 //        }
 
 //        if (id == R.id.nav_camera) {

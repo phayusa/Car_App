@@ -53,7 +53,7 @@ public class MenuActivity extends AppCompatActivity {
             = (item) -> {
         switch (item.getItemId()) {
             case R.id.nav_settings:
-                startActivity(new Intent(getApplicationContext(), CarsListActivity.class));
+                startActivity(new Intent(getApplicationContext(), CarListFragment.class));
             default:
                 return false;
         }

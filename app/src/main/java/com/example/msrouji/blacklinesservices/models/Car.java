@@ -1,7 +1,5 @@
 package com.example.msrouji.blacklinesservices.models;
 
-import com.example.msrouji.blacklinesservices.CarsListActivity;
-
 import java.io.Serializable;
 
 /**

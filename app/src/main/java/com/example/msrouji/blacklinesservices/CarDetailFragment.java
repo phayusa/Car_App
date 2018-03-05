@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.PowerManager;
+import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,31 +29,40 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class CarDetailActivity extends AppCompatActivity {
-
+public class CarDetailFragment extends android.support.v4.app.Fragment {
+    private View root_view;
     private Car selected_car;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_detail);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.car_detail_fragment,
+                container, false);
 
-        selected_car = ((Car) getIntent().getSerializableExtra(CarsListActivity.key_id_vehicle));
+        root_view = view;
+        selected_car = CarActivity.getSelectedCar();
 
-        ((TextView) findViewById(R.id.car_registration)).setText(selected_car.getRegistration());
-        ((TextView) findViewById(R.id.car_color)).setText(selected_car.getColor());
+        CarActivity.setCurrentFrag(2);
 
-        Picasso.with(getApplicationContext()).load(selected_car.getFront()).resize(250, 200).centerInside().into((ImageView) findViewById(R.id.car_front));
-        Picasso.with(getApplicationContext()).load(selected_car.getBack()).resize(250, 200).centerInside().into((ImageView) findViewById(R.id.car_back));
-        ((ViewFlipper) findViewById(R.id.flipperid)).startFlipping();
+        ((TextView) view.findViewById(R.id.car_registration)).setText(selected_car.getRegistration());
+        ((TextView) view.findViewById(R.id.car_color)).setText(selected_car.getColor());
+//        selected_car = ((Car) getIntent().getSerializableExtra(CarListFragment.key_id_vehicle));
+
+        Picasso.with(getActivity().getApplicationContext()).load(selected_car.getFront()).resize(250, 200).centerInside().into((ImageView) view.findViewById(R.id.car_front));
+        Picasso.with(getActivity().getApplicationContext()).load(selected_car.getBack()).resize(250, 200).centerInside().into((ImageView) view.findViewById(R.id.car_back));
+        ((ViewFlipper) view.findViewById(R.id.flipperid)).startFlipping();
+
+        return view;
     }
+
 
     public void onClick(View view) {
         int id_view = view.getId();
         if (id_view == R.id.registration_card) {
-            new DownloadTask(getApplicationContext()).execute(selected_car.getRegistration_card(), "carte grise.jpg");
+            new DownloadTask(getActivity().getApplicationContext()).execute(selected_car.getRegistration_card(), "carte grise.jpg");
         } else if (id_view == R.id.assurance_card) {
-            new DownloadTask(getApplicationContext()).execute(selected_car.getInsurance_card(), "carte verte.jpg");
+            new DownloadTask(getActivity().getApplicationContext()).execute(selected_car.getInsurance_card(), "carte verte.jpg");
         } else if (id_view == R.id.select_car) {
             try {
                 Server_Request send = new Server_Request("GET", getString(R.string.url_server)
@@ -59,7 +70,7 @@ public class CarDetailActivity extends AppCompatActivity {
                 send.execute();
             } catch (java.io.IOException e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -67,17 +78,18 @@ public class CarDetailActivity extends AppCompatActivity {
     private class listener implements ServerListener {
         @Override
         public void onDataListener(Object o) {
-            if (o == null){
-                Toast.makeText(getApplicationContext(),"Une erreur est survenue",Toast.LENGTH_LONG).show();
+            if (o == null) {
+                Toast.makeText(getActivity().getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
                 return;
             }
             String result = ((String) o);
             System.err.println(result);
-            if (result.equals("Ok")){
-                Toast.makeText(getApplicationContext(),"Réserver",Toast.LENGTH_LONG).show();
-                finish();
-            }else{
-                Toast.makeText(getApplicationContext(),"Une erreur est survenue",Toast.LENGTH_LONG).show();
+            if (result.equals("Ok")) {
+                Toast.makeText(getActivity().getApplicationContext(), "Réserver", Toast.LENGTH_LONG).show();
+                LoginActivity.setCar(selected_car.getId());
+                getActivity().finish();
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
 
             }
         }

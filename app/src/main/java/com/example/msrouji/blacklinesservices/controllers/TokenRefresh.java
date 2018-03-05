@@ -17,7 +17,7 @@ import java.net.URL;
  */
 
 
-public class TokenRefresh extends AsyncTask<String,Void,String> {
+public class TokenRefresh extends AsyncTask<String, Void, JSONObject> {
     private ServerListener data;
 
     public TokenRefresh(ServerListener data) {
@@ -25,9 +25,9 @@ public class TokenRefresh extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected JSONObject doInBackground(String... strings) {
         try {
-            URL url = new URL(strings[0] + "conn/refresh/");
+            URL url = new URL(strings[0] + "db/refresh/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
@@ -44,7 +44,7 @@ public class TokenRefresh extends AsyncTask<String,Void,String> {
             InputStreamReader reader = new InputStreamReader(conn.getInputStream());
             BufferedReader buff = new BufferedReader(reader);
 
-            return new JSONObject(buff.readLine()).getString("token");
+            return new JSONObject(buff.readLine());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -56,7 +56,7 @@ public class TokenRefresh extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected void onPostExecute(String aVoid) {
+    protected void onPostExecute(JSONObject aVoid) {
         super.onPostExecute(aVoid);
         data.onDataListener(aVoid);
     }

@@ -1,8 +1,10 @@
 package com.example.msrouji.blacklinesservices;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -16,29 +18,27 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CarsListActivity extends BaseActivity {
+public class CarListFragment extends android.support.v4.app.Fragment {
 
     private ListView list;
     private Gson gson;
     public final static String key_id_vehicle = "vehicle_id";
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
-//        ViewStub stub = ((ViewStub) findViewById(R.id.view_main));
-//        stub.setLayoutResource(R.layout.content_drive);
-//        stub.inflate();
+        View view = inflater.inflate(R.layout.drive_fragment,
+                container, false);
 
         gson = new Gson();
 
-        list = ((ListView) findViewById(android.R.id.list));
+        list = view.findViewById(android.R.id.list);
 
-        // set the list adapter
-//        String[] entities = {"Users", "Books", "Orders", "States"};
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, entities);
-//        list.setAdapter(adapter);
-//        list.setOnItemClickListener(new list_adapter_listener());
+        CarActivity.setCurrentFrag(1);
+//        ((TextView) view.findViewById(R.id.toolbar_title)).setText("Choix voiture");
+
 
         try {
             new Server_Request("GET", getString(R.string.url_server) + "db/vehicles/", new list_loader()).execute();
@@ -46,31 +46,30 @@ public class CarsListActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-//        try {
-//            System.err.println(getString(R.string.url_server) + "/db/vehicles/");
-//        } catch (java.io.IOException e) {
-//            e.printStackTrace();
-//        }
+        return view;
     }
+
 
     private class list_adapter_listener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            Toast.makeText(getApplicationContext(), "Pushed " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), CarDetailActivity.class);
-            Car selected_car = ((Car) adapterView.getItemAtPosition(i));
-            intent.putExtra(key_id_vehicle, selected_car);
-            startActivity(intent);
+            Toast.makeText(getActivity().getApplicationContext(), "Pushed " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
+            CarActivity.setSelectedCar((Car) adapterView.getItemAtPosition(i));
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CarDetailFragment()).commit();
+
+//            Intent intent = new Intent(getActivity().getApplicationContext(), CarDetailFragment.class);
+//            Car selected_car = ((Car) adapterView.getItemAtPosition(i));
+//            intent.putExtra(key_id_vehicle, selected_car);
+//            startActivity(intent);
         }
     }
 
     private class list_loader implements ServerListener {
         @Override
         public void onDataListener(Object o) {
-            System.err.println(o);
-            if (o == null){
-                Toast.makeText(getApplicationContext(), "Une erreur est survenue. Rélancer l'applicaiton", Toast.LENGTH_LONG);
-                finish();
+            if (o == null) {
+                Toast.makeText(getActivity().getApplicationContext(), "Une erreur est survenue. Rélancer l'applicaiton", Toast.LENGTH_LONG).show();
+                getActivity().finish();
                 return;
             }
             Car[] cars = gson.fromJson(o.toString(), Car[].class);
@@ -80,7 +79,7 @@ public class CarsListActivity extends BaseActivity {
 //            }
 //            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, registrations);
 //            list.setAdapter(adapter);
-            VehicleAdapter cars_adapter = new VehicleAdapter(getApplicationContext(), 0, new ArrayList<Car>(Arrays.asList(cars)));
+            VehicleAdapter cars_adapter = new VehicleAdapter(getActivity().getApplicationContext(), 0, new ArrayList<Car>(Arrays.asList(cars)));
             list.setAdapter(cars_adapter);
             list.setOnItemClickListener(new list_adapter_listener());
 //            System.err.println(cars[0].getRegistration());
@@ -88,6 +87,8 @@ public class CarsListActivity extends BaseActivity {
 
         }
     }
+
+
 
 
 }

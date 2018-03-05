@@ -75,7 +75,6 @@ public class VehicleAdapter extends ArrayAdapter<Car> {
 
         //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
         Car car = getItem(position);
-        System.err.println(car);
 
         //il ne reste plus qu'à remplir notre vue
         if (car.getDriver() == null) {
@@ -84,7 +83,7 @@ public class VehicleAdapter extends ArrayAdapter<Car> {
             viewHolder.car_is_available.setText("Indisponible");
         }
         viewHolder.car_registration.setText(car.getRegistration());
-        Picasso.with(getContext()).load(car.getFront()).resize(100, 100).centerInside().into(viewHolder.car_front);
+        Picasso.with(getContext()).load(car.getFront()).error(getContext().getResources().getDrawable(R.drawable.drive)).resize(100, 100).centerInside().into(viewHolder.car_front);
 
         //nous renvoyons notre vue à l'adapter, afin qu'il l'affiche
         //et qu'il puisse la mettre à recycler lorsqu'elle sera sortie de l'écran
