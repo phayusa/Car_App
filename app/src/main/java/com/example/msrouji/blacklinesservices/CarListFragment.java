@@ -37,8 +37,6 @@ public class CarListFragment extends android.support.v4.app.Fragment {
         list = view.findViewById(android.R.id.list);
 
         CarActivity.setCurrentFrag(1);
-//        ((TextView) view.findViewById(R.id.toolbar_title)).setText("Choix voiture");
-
 
         try {
             new Server_Request("GET", getString(R.string.url_server) + "db/vehicles/", new list_loader()).execute();
@@ -53,37 +51,28 @@ public class CarListFragment extends android.support.v4.app.Fragment {
     private class list_adapter_listener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            Toast.makeText(getActivity().getApplicationContext(), "Pushed " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
             CarActivity.setSelectedCar((Car) adapterView.getItemAtPosition(i));
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CarDetailFragment()).commit();
-
-//            Intent intent = new Intent(getActivity().getApplicationContext(), CarDetailFragment.class);
-//            Car selected_car = ((Car) adapterView.getItemAtPosition(i));
-//            intent.putExtra(key_id_vehicle, selected_car);
-//            startActivity(intent);
         }
     }
 
     private class list_loader implements ServerListener {
         @Override
         public void onDataListener(Object o) {
-            if (o == null) {
-                Toast.makeText(getActivity().getApplicationContext(), "Une erreur est survenue. Rélancer l'applicaiton", Toast.LENGTH_LONG).show();
+            try {
+                if (o == null) {
+                    Toast.makeText(getActivity().getApplicationContext(), "Une erreur est survenue. Rélancer l'applicaiton", Toast.LENGTH_LONG).show();
+                    getActivity().finish();
+                    return;
+                }
+                Car[] cars = gson.fromJson(o.toString(), Car[].class);
+                VehicleAdapter cars_adapter = new VehicleAdapter(getActivity().getApplicationContext(), 0, new ArrayList<Car>(Arrays.asList(cars)));
+                list.setAdapter(cars_adapter);
+                list.setOnItemClickListener(new list_adapter_listener());
+            }catch (Exception e){
+                e.printStackTrace();
                 getActivity().finish();
-                return;
             }
-            Car[] cars = gson.fromJson(o.toString(), Car[].class);
-//            ArrayList<String> registrations = new ArrayList<>();
-//            for (Car car : cars){
-//                registrations.add(car.getRegistration());
-//            }
-//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, registrations);
-//            list.setAdapter(adapter);
-            VehicleAdapter cars_adapter = new VehicleAdapter(getActivity().getApplicationContext(), 0, new ArrayList<Car>(Arrays.asList(cars)));
-            list.setAdapter(cars_adapter);
-            list.setOnItemClickListener(new list_adapter_listener());
-//            System.err.println(cars[0].getRegistration());
-//            ArrayAdapter<String> adapter = new ArrayAdapter<String>();
 
         }
     }

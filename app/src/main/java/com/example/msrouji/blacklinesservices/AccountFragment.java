@@ -24,8 +24,11 @@ public class AccountFragment extends Fragment {
                 container, false);
 
         ((TextView) view.findViewById(R.id.driver)).setText(LoginActivity.getName());
-        ((TextView) view.findViewById(R.id.car)).setText("" + LoginActivity.getCar());
-
+        if (LoginActivity.getCar() == -1) {
+            ((TextView) view.findViewById(R.id.car)).setText("Aucune");
+        } else {
+            ((TextView) view.findViewById(R.id.car)).setText("" + LoginActivity.getCar());
+        }
         setListenersButtons(view);
         return view;
     }

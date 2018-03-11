@@ -3,15 +3,14 @@ package com.example.msrouji.blacklinesservices;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,10 +29,13 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class CarDetailFragment extends android.support.v4.app.Fragment {
+/**
+ * Created by sokomo on 10/03/18.
+ */
+
+public class TravelDetailFragment extends android.support.v4.app.Fragment  {
     private View root_view;
     private Car selected_car;
-    private boolean booking;
 
     @Nullable
     @Override
@@ -44,11 +46,9 @@ public class CarDetailFragment extends android.support.v4.app.Fragment {
 
         root_view = view;
         selected_car = CarActivity.getSelectedCar();
-        booking = true;
 
-        if (selected_car.getId() == LoginActivity.getCar()) {
+        if(selected_car.getId() == LoginActivity.getCar()){
             ((TextView) view.findViewById(R.id.select_car)).setText(getString(R.string.car_detail_exit));
-            booking = false;
         }
 
         CarActivity.setCurrentFrag(2);
@@ -61,46 +61,26 @@ public class CarDetailFragment extends android.support.v4.app.Fragment {
         Picasso.with(getActivity().getApplicationContext()).load(selected_car.getBack()).resize(250, 200).centerInside().into((ImageView) view.findViewById(R.id.car_back));
         ((ViewFlipper) view.findViewById(R.id.flipperid)).startFlipping();
 
-        onClick(view);
-
         return view;
     }
 
 
-    private void onClick(View view) {
-//        int id_view = view.getId();
-        ((Button) view.findViewById(R.id.registration_card)).setOnClickListener((view1 -> new DownloadTask(getActivity().getApplicationContext()).execute(selected_car.getRegistration_card(), "carte grise.jpg")));
-        ((Button) view.findViewById(R.id.assurance_card)).setOnClickListener((view1 -> new DownloadTask(getActivity().getApplicationContext()).execute(selected_car.getInsurance_card(), "carte verte.jpg")));
-        ((Button) view.findViewById(R.id.select_car)).setOnClickListener((view1 -> {
+    public void onClick(View view) {
+        int id_view = view.getId();
+        if (id_view == R.id.registration_card) {
+            new DownloadTask(getActivity().getApplicationContext()).execute(selected_car.getRegistration_card(), "carte grise.jpg");
+        } else if (id_view == R.id.assurance_card) {
+            new DownloadTask(getActivity().getApplicationContext()).execute(selected_car.getInsurance_card(), "carte verte.jpg");
+        } else if (id_view == R.id.select_car) {
             try {
-                // Post method delete the user as driver
-                // Get method add it
-                String method = selected_car.getId() == LoginActivity.getCar() ? "POST" : "GET";
-                Server_Request send = new Server_Request(method, getString(R.string.url_server)
+                Server_Request send = new Server_Request("GET", getString(R.string.url_server)
                         + "db/vehicle/" + selected_car.getId() + "/driver/", new listener());
                 send.execute();
             } catch (java.io.IOException e) {
                 e.printStackTrace();
                 Toast.makeText(getActivity().getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
             }
-        }));
-//        if (id_view == R.id.registration_card) {
-//            new DownloadTask(getActivity().getApplicationContext()).execute(selected_car.getRegistration_card(), "carte grise.jpg");
-//        } else if (id_view == R.id.assurance_card) {
-//            new DownloadTask(getActivity().getApplicationContext()).execute(selected_car.getInsurance_card(), "carte verte.jpg");
-//        } else if (id_view == R.id.select_car) {
-//            try {
-//                // Post method delete the user as driver
-//                // Get method add it
-//                String method = selected_car.getId() == LoginActivity.getCar() ? "POST" : "GET";
-//                Server_Request send = new Server_Request(method, getString(R.string.url_server)
-//                        + "db/vehicle/" + selected_car.getId() + "/driver", new listener());
-//                send.execute();
-//            } catch (java.io.IOException e) {
-//                e.printStackTrace();
-//                Toast.makeText(getActivity().getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
-//            }
-//        }
+        }
     }
 
     private class listener implements ServerListener {
@@ -113,13 +93,8 @@ public class CarDetailFragment extends android.support.v4.app.Fragment {
             String result = ((String) o);
             System.err.println(result);
             if (result.equals("Ok")) {
-                if (selected_car.getId() == LoginActivity.getCar()) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Quitter", Toast.LENGTH_LONG).show();
-                    LoginActivity.setCar(-1);
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Réserver", Toast.LENGTH_LONG).show();
-                    LoginActivity.setCar(selected_car.getId());
-                }
+                Toast.makeText(getActivity().getApplicationContext(), "Réserver", Toast.LENGTH_LONG).show();
+                LoginActivity.setCar(selected_car.getId());
                 getActivity().finish();
             } else {
                 Toast.makeText(getActivity().getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
@@ -216,6 +191,4 @@ public class CarDetailFragment extends android.support.v4.app.Fragment {
 
         }
     }
-
-
 }

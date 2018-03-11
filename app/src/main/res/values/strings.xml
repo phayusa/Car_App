@@ -27,12 +27,17 @@
     <string name="car_detail_registration">Immatriculation : </string>
     <string name="car_detail_color">Couleur : </string>
     <string name="car_detail_select">Choisir cette voiture</string>
+    <string name="car_detail_exit">Quitter</string>
     <string name="car_detail_registration_card">Carte Grise</string>
     <string name="car_detail_assurance_card">Carte Verte</string>
     <string name="car_detail_contract">"Contrat d'assurance"</string>
 
     <!-- Strings related to drive booking -->
     <string name="booking_drive_title">Réservation : </string>
+
+    <!-- Strings related to travel list -->
+    <string name="travel_list_start">Départ prévue </string>
+
 
 
     <!-- Strings related to login -->

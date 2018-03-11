@@ -19,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.msrouji.blacklinesservices.models.Travel;
+
 public class MenuActivity extends AppCompatActivity {
 
     protected TextView mTextMessage;
@@ -29,6 +31,7 @@ public class MenuActivity extends AppCompatActivity {
 //    private final Fragment home = new HomeFragment();
 
     private Location lastKnownLocation;
+    private static Travel travel_choose;
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -42,7 +45,7 @@ public class MenuActivity extends AppCompatActivity {
                 fragmentManager.beginTransaction().replace(R.id.fragment_container, new AccountFragment()).commit();
                 return true;
             case R.id.navigation_runs:
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, new DriveFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, new TravelListFragment()).commit();
                 return true;
             default:
                 return false;
@@ -137,5 +140,13 @@ public class MenuActivity extends AppCompatActivity {
 
     public Location getLastKnownLocation() {
         return lastKnownLocation;
+    }
+
+    public static Travel getTravel_choose() {
+        return travel_choose;
+    }
+
+    public static void setTravel_choose(Travel travel_choose) {
+        MenuActivity.travel_choose = travel_choose;
     }
 }

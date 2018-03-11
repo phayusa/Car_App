@@ -92,7 +92,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:onClick="onClick"
                     android:text="@string/car_detail_registration_card" />
 
                 <Button
@@ -100,7 +99,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:onClick="onClick"
                     android:text="@string/car_detail_assurance_card" />
             </LinearLayout>
 
@@ -121,7 +119,6 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/activity_high_vertical_margin"
             android:background="@color/colorPrimaryDark"
-            android:onClick="onClick"
             android:text="@string/car_detail_select"
             android:textColor="@color/colorTextInvert" />
     </LinearLayout>

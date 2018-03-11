@@ -9,6 +9,9 @@ import java.util.ArrayList;
 public class Travel {
     private Long id;
     private ArrayList<Long> bookings;
+    private String start;
+    private String end;
+    private String airport;
 
     public Long getId() {
         return id;
@@ -24,5 +27,29 @@ public class Travel {
 
     public void setBookings(ArrayList<Long> bookings) {
         this.bookings = bookings;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
+
+    public String getAirport() {
+        return airport;
+    }
+
+    public void setAirport(String airport) {
+        this.airport = airport;
     }
 }

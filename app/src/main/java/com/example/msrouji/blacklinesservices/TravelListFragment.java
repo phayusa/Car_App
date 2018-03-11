@@ -13,9 +13,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.msrouji.blacklinesservices.adapters.BookingAdapter;
+import com.example.msrouji.blacklinesservices.adapters.TravelAdapter;
 import com.example.msrouji.blacklinesservices.controllers.ServerListener;
 import com.example.msrouji.blacklinesservices.controllers.Server_Request;
 import com.example.msrouji.blacklinesservices.models.Booking;
+import com.example.msrouji.blacklinesservices.models.Car;
+import com.example.msrouji.blacklinesservices.models.Travel;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ import java.util.Arrays;
  * Created by msrouji on 02/12/2017.
  */
 
-public class DriveFragment extends Fragment {
+public class TravelListFragment extends Fragment {
 
     private Gson gson;
     private ListView list;
@@ -33,14 +36,14 @@ public class DriveFragment extends Fragment {
     private class list_adapter_listener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//            Toast.makeText(getApplicationContext(), "Pushed " + adapterView.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(getApplicationContext(), CarDetailFragment.class);
-//            Car selected_car = ((Car) adapterView.getItemAtPosition(i));
-//            intent.putExtra(key_id_vehicle, selected_car);
-//            startActivity(intent);
-            Booking selected_booking = ((Booking) adapterView.getItemAtPosition(i));
-            String uri = "https://waze.com/ul?ll=" + selected_booking.getDestination() + "&navigate=yes";
-            startActivity(new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri)));
+
+
+            MenuActivity.setTravel_choose((Travel) adapterView.getItemAtPosition(i));
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TravelDetailFragment()).commit();
+
+//            Booking selected_booking = ((Booking) adapterView.getItemAtPosition(i));
+//            String uri = "https://waze.com/ul?ll=" + selected_booking.getDestination() + "&navigate=yes";
+//            startActivity(new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri)));
         }
     }
 
@@ -55,9 +58,12 @@ public class DriveFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "Sélectionner une voiture avant", Toast.LENGTH_SHORT).show();
 //                finish();
             }
-            Booking[] bookings = gson.fromJson(o.toString(), Booking[].class);
-            BookingAdapter cars_adapter = new BookingAdapter(getActivity().getApplicationContext(), R.layout.drive_fragment,
-                    new ArrayList<Booking>(Arrays.asList(bookings)));
+
+            System.err.println(o.toString());
+            Travel[] bookings = gson.fromJson(o.toString(), Travel[].class);
+            TravelAdapter cars_adapter = new TravelAdapter(getActivity().getApplicationContext(), R.layout.drive_fragment,
+                    new ArrayList<Travel>(Arrays.asList(bookings)));
+
             list.setAdapter(cars_adapter);
             list.setOnItemClickListener(new list_adapter_listener());
 
@@ -75,7 +81,7 @@ public class DriveFragment extends Fragment {
         list = view.findViewById(android.R.id.list);
 
         try {
-            new Server_Request("GET", getString(R.string.url_server) + "db/driver/travel/", new list_loader()).execute();
+            new Server_Request("GET", getString(R.string.url_server) + "db/travels/", new list_loader()).execute();
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }

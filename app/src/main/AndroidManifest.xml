@@ -51,10 +51,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".CarListFragment" />
-
-        <activity android:name=".CarDetailFragment" />
-
         <activity android:name=".MenuActivity" />
 
         <activity android:name=".CarActivity" />

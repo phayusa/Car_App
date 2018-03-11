@@ -44,8 +44,10 @@ public class Server_Request extends AsyncTask<String, Void, Object> {
             if (method.equals("PUT") || method.equals("POST")) {
 
                 OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-                writer.write(data[0]);
-                writer.flush();
+                if (data != null && data.length > 0) {
+                    writer.write(data[0]);
+                    writer.flush();
+                }
             }
 
             InputStreamReader reader = new InputStreamReader(connection.getInputStream());
