@@ -39,13 +39,19 @@ public class TravelListFragment extends Fragment {
     private Gson gson;
     private ListView list;
 
+    public static final String key_extra_travel = "21829829829898 sksjjsj";
+
     private class list_adapter_listener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+            Travel choose = ((Travel) adapterView.getItemAtPosition(i));
+            Intent intent = new Intent(getActivity(), TravelDetailActivity.class);
+            intent.putExtra(key_extra_travel, choose);
+            startActivity(intent);
 
-            MenuActivity.setTravel_choose((Travel) adapterView.getItemAtPosition(i));
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TravelDetailFragment()).commit();
+//            MenuActivity.setTravel_choose((Travel) adapterView.getItemAtPosition(i));
+//            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TravelDetailFragment()).commit();
 
 //            Booking selected_booking = ((Booking) adapterView.getItemAtPosition(i));
 //            String uri = "https://waze.com/ul?ll=" + selected_booking.getDestination() + "&navigate=yes";
@@ -80,6 +86,7 @@ public class TravelListFragment extends Fragment {
         }
     }
 
+    // Class to apply modifcation to booking data
     private class TravelAirportListener implements ServerListener {
         private int index_travel;
         private Travel[] bookings;

@@ -55,6 +55,8 @@
 
         <activity android:name=".CarActivity" />
 
+        <activity android:name=".TravelDetailActivity" />
+
     </application>
 
 </manifest>

@@ -2,15 +2,17 @@ package com.example.msrouji.blacklinesservices.models;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by msrouji on 19/11/2017.
  */
 
-public class Travel {
+public class Travel implements Serializable{
     private Long id;
-    private ArrayList<Long> bookings;
+    private ArrayList<Long>  bookings;
+    private ArrayList<Booking>  bookings_obj;
     private String start;
     private String end;
     private int airport;
@@ -62,5 +64,13 @@ public class Travel {
 
     public void setAirport_obj(Airport airport_obj) {
         this.airport_obj = airport_obj;
+    }
+
+    public ArrayList<Booking> getBookings_obj() {
+        return bookings_obj;
+    }
+
+    public void setBookings_obj(ArrayList<Booking> bookings_obj) {
+        this.bookings_obj = bookings_obj;
     }
 }

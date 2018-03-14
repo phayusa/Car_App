@@ -91,7 +91,7 @@ public class TravelDetailFragment extends android.support.v4.app.Fragment  {
                 return;
             }
             String result = ((String) o);
-            System.err.println(result);
+
             if (result.equals("Ok")) {
                 Toast.makeText(getActivity().getApplicationContext(), "Réserver", Toast.LENGTH_LONG).show();
                 LoginActivity.setCar(selected_car.getId());
