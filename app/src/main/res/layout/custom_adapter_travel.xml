@@ -3,33 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/row_height"
     android:layout_margin="@dimen/fab_margin"
-    android:background="@color/colorPrimary"
     android:padding="@dimen/grid_padding">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="120sp"
         android:layout_height="match_parent"
         android:layout_marginLeft="10sp"
         android:layout_marginStart="10sp"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="100sp"
-            android:layout_height="30sp"
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:layout_gravity="left"
             android:text="@string/travel_list_start"
-            android:textColor="@color/colorTextInvert" />
+            android:textColor="@color/colorPrimaryDark" />
 
 
         <TextView
             android:id="@+id/start"
-            android:layout_width="100sp"
-            android:layout_height="30sp"
-            android:layout_gravity="center"
-            android:textColor="@color/colorTextInvert" />
+            android:layout_width="match_parent"
+            android:layout_height="20sp"
+            android:layout_gravity="start"
+            android:textColor="@color/colorPrimaryDark" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="200sp"
         android:layout_height="match_parent"
         android:layout_marginStart="20sp"
         android:layout_marginLeft="20sp"
@@ -39,14 +39,14 @@
             android:id="@+id/airport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorTextInvert" />
+            android:textColor="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/destination"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColor="@color/colorTextInvert" />
+            android:textColor="@color/colorPrimaryDark" />
     </LinearLayout>
 
 

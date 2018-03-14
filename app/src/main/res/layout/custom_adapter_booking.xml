@@ -3,18 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/row_height"
     android:layout_margin="@dimen/fab_margin"
-    android:background="@color/colorPrimary"
     android:padding="@dimen/grid_padding">
 
     <TextView
         android:id="@+id/client_name"
-        android:layout_width="wrap_content"
+        android:layout_width="100sp"
         android:layout_height="wrap_content"
         android:text="Le Client"
-        android:textColor="@color/colorTextInvert" />
+        android:textColor="@color/colorPrimaryDark" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="250sp"
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
         android:orientation="vertical">
@@ -24,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Aéroport Charles de Gaules"
-            android:textColor="@color/colorTextInvert" />
+            android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
             android:id="@+id/destination"
@@ -32,28 +31,28 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="14 rue de Beauford "
-            android:textColor="@color/colorTextInvert" />
+            android:textColor="@color/colorPrimaryDark"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:orientation="vertical">
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:orientation="vertical">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Distance"
-            android:textColor="@color/colorTextInvert" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Distance"-->
+            <!--android:textColor="@color/colorPrimaryDark"/>-->
 
-        <TextView
-            android:id="@+id/distance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="10km"
-            android:textColor="@color/colorTextInvert" />
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/distance"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:text="10km"-->
+            <!--android:textColor="@color/colorPrimaryDark"/>-->
+    <!--</LinearLayout>-->
 
 </LinearLayout>

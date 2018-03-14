@@ -2,6 +2,9 @@ package com.example.msrouji.blacklinesservices.controllers;
 
 import android.os.AsyncTask;
 
+import com.example.msrouji.blacklinesservices.LoginActivity;
+import com.example.msrouji.blacklinesservices.MenuActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,11 +34,11 @@ public class TokenRefresh extends AsyncTask<String, Void, JSONObject> {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
-            //conn.setRequestProperty("token", "JWT " + MainActivity.getToken());
+            conn.setRequestProperty("token", "JWT " + LoginActivity.getToken());
             conn.setDoOutput(true);
 
             JSONObject toSendData = new JSONObject();
-            toSendData.accumulate("token", strings[1]);
+            toSendData.accumulate("token", LoginActivity.getToken());
 
             OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
             writer.write(toSendData.toString());

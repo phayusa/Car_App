@@ -466,11 +466,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                    @Override
 //                    public void run() {
 //                        handler.postDelayed(this, 30000); // every 5 minutes
-//                        new TokenRefresh(new ReceiveToken()).execute(getString(R.string.url_server), token);
+//                        new TokenRefresh(new ReceiveToken()).execute(getString(R.string.url_server));
 //
 //                    }
 //                }, 30000);
-//                finish();
+                finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

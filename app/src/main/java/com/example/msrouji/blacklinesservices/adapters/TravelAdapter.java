@@ -74,7 +74,7 @@ public class TravelAdapter extends ArrayAdapter<Travel> {
 
         Travel travel = getItem(position);
         viewHolder.start.setText(travel.getStart());
-        viewHolder.airport.setText(travel.getAirport());
+        viewHolder.airport.setText(travel.getAirport_obj().getAddress());
 
         //il ne reste plus qu'à remplir notre vue
 

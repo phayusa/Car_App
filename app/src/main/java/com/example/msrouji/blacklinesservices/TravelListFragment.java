@@ -15,12 +15,18 @@ import android.widget.Toast;
 import com.example.msrouji.blacklinesservices.adapters.BookingAdapter;
 import com.example.msrouji.blacklinesservices.adapters.TravelAdapter;
 import com.example.msrouji.blacklinesservices.controllers.ServerListener;
+import com.example.msrouji.blacklinesservices.controllers.Server_Detail_Request;
 import com.example.msrouji.blacklinesservices.controllers.Server_Request;
+import com.example.msrouji.blacklinesservices.models.Airport;
 import com.example.msrouji.blacklinesservices.models.Booking;
 import com.example.msrouji.blacklinesservices.models.Car;
 import com.example.msrouji.blacklinesservices.models.Travel;
 import com.google.gson.Gson;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -59,14 +65,62 @@ public class TravelListFragment extends Fragment {
 //                finish();
             }
 
-            System.err.println(o.toString());
+//            System.err.println(o.toString());
             Travel[] bookings = gson.fromJson(o.toString(), Travel[].class);
-            TravelAdapter cars_adapter = new TravelAdapter(getActivity().getApplicationContext(), R.layout.drive_fragment,
-                    new ArrayList<Travel>(Arrays.asList(bookings)));
+            UpdateTravelAirportDetail(bookings);
 
-            list.setAdapter(cars_adapter);
-            list.setOnItemClickListener(new list_adapter_listener());
+        }
+    }
 
+    private void UpdateTravelAirportDetail(Travel[] bookings) {
+        int sizeArray = bookings.length;
+        for (int i = 0; i < sizeArray; i++) {
+            Travel travel = bookings[i];
+            new Server_Detail_Request<Airport>(new TravelAirportListener(i, bookings, sizeArray), getString(R.string.url_server) + "db/airport/", travel.getAirport(), Airport.class);
+        }
+    }
+
+    private class TravelAirportListener implements ServerListener {
+        private int index_travel;
+        private Travel[] bookings;
+        private int size;
+
+        private TravelAirportListener(int index_travel, Travel[] bookings, int size) {
+            this.index_travel = index_travel;
+            this.bookings = bookings;
+            this.size = size - 1;
+        }
+
+        // Tranform the datetime format into lookable format
+        private String GetTimeNewFormat(String DateTime) {
+            // Convert time into Instant object
+            Instant instant = Instant.parse(DateTime);
+
+            //get date time only
+            LocalDateTime result = LocalDateTime.ofInstant(instant, ZoneId.of(ZoneOffset.UTC.getId()));
+
+            return "" + result.getDayOfMonth() + "/" + result.getMonthValue() + "/" + result.getYear() + " " + result.getHour() + ":" + result.getMinute();
+        }
+
+        @Override
+        public void onDataListener(Object o) {
+            if (o != null) {
+                Airport airport = ((Airport) o);
+                bookings[index_travel].setAirport_obj(airport);
+                bookings[index_travel].setStart(GetTimeNewFormat(bookings[index_travel].getStart()));
+                bookings[index_travel].setEnd(GetTimeNewFormat(bookings[index_travel].getEnd()));
+
+
+                // At the last update index
+                if (index_travel == size) {
+                    // We set adapters and add item click listener
+                    TravelAdapter cars_adapter = new TravelAdapter(getActivity().getApplicationContext(), R.layout.drive_fragment,
+                            new ArrayList<Travel>(Arrays.asList(bookings)));
+
+                    list.setAdapter(cars_adapter);
+                    list.setOnItemClickListener(new list_adapter_listener());
+                }
+            }
         }
     }
 

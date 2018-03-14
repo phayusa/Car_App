@@ -9,12 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.msrouji.blacklinesservices.controllers.ServerListener;
+import com.example.msrouji.blacklinesservices.controllers.Server_Detail_Request;
+import com.example.msrouji.blacklinesservices.models.Car;
 
 /**
  * Created by msrouji on 02/12/2017.
  */
 
 public class AccountFragment extends Fragment {
+
+    private View root_view;
 
     @Nullable
     @Override
@@ -24,13 +31,43 @@ public class AccountFragment extends Fragment {
                 container, false);
 
         ((TextView) view.findViewById(R.id.driver)).setText(LoginActivity.getName());
-        if (LoginActivity.getCar() == -1) {
-            ((TextView) view.findViewById(R.id.car)).setText("Aucune");
-        } else {
-            ((TextView) view.findViewById(R.id.car)).setText("" + LoginActivity.getCar());
-        }
+//        UpdateCarInfo();
         setListenersButtons(view);
+
+        root_view = view;
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        UpdateCarInfo((int) LoginActivity.getCar());
+    }
+
+    // Update the car information
+    public void UpdateCarInfo(int id) {
+        if (id == -1) {
+            ((TextView) root_view.findViewById(R.id.car)).setText("Aucune");
+        } else {
+            // Getting the car detail information
+            new Server_Detail_Request<Car>(new CarDetailListener(), getString(R.string.url_server) + "db/vehicle/", id, Car.class);
+        }
+    }
+
+    // Private class to car detail request
+    private class CarDetailListener implements ServerListener {
+        @Override
+        public void onDataListener(Object o) {
+            // if something bad happened
+            if (o == null) {
+                Toast.makeText(getActivity().getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                return;
+            }
+            // Else
+            Car car = ((Car) o);
+            ((TextView) root_view.findViewById(R.id.car)).setText(car.getRegistration());
+
+        }
     }
 
     private void setListenersButtons(View view) {

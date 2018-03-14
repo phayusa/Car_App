@@ -1,5 +1,7 @@
 package com.example.msrouji.blacklinesservices.models;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -11,7 +13,8 @@ public class Travel {
     private ArrayList<Long> bookings;
     private String start;
     private String end;
-    private String airport;
+    private int airport;
+    private Airport airport_obj;
 
     public Long getId() {
         return id;
@@ -45,11 +48,19 @@ public class Travel {
         this.end = end;
     }
 
-    public String getAirport() {
+    public int getAirport() {
         return airport;
     }
 
-    public void setAirport(String airport) {
+    public void setAirport(int airport) {
         this.airport = airport;
+    }
+
+    public Airport getAirport_obj() {
+        return airport_obj;
+    }
+
+    public void setAirport_obj(Airport airport_obj) {
+        this.airport_obj = airport_obj;
     }
 }
