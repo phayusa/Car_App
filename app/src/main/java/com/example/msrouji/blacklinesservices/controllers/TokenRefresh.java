@@ -2,6 +2,9 @@ package com.example.msrouji.blacklinesservices.controllers;
 
 import android.os.AsyncTask;
 
+import com.example.msrouji.blacklinesservices.LoginActivity;
+import com.example.msrouji.blacklinesservices.MenuActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,25 +20,25 @@ import java.net.URL;
  */
 
 
-public class TokenRefresh extends AsyncTask<String,Void,String> {
-    private Server_Listener data;
+public class TokenRefresh extends AsyncTask<String, Void, JSONObject> {
+    private ServerListener data;
 
-    public TokenRefresh(Server_Listener data) {
+    public TokenRefresh(ServerListener data) {
         this.data = data;
     }
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected JSONObject doInBackground(String... strings) {
         try {
-            URL url = new URL(strings[0] + "user/refresh/");
+            URL url = new URL(strings[0] + "db/refresh/");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
-            //conn.setRequestProperty("token", "JWT " + MainActivity.getToken());
+            conn.setRequestProperty("token", "JWT " + LoginActivity.getToken());
             conn.setDoOutput(true);
 
             JSONObject toSendData = new JSONObject();
-            toSendData.accumulate("token", strings[1]);
+            toSendData.accumulate("token", LoginActivity.getToken());
 
             OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
             writer.write(toSendData.toString());
@@ -44,7 +47,7 @@ public class TokenRefresh extends AsyncTask<String,Void,String> {
             InputStreamReader reader = new InputStreamReader(conn.getInputStream());
             BufferedReader buff = new BufferedReader(reader);
 
-            return new JSONObject(buff.readLine()).getString("token");
+            return new JSONObject(buff.readLine());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -56,7 +59,7 @@ public class TokenRefresh extends AsyncTask<String,Void,String> {
     }
 
     @Override
-    protected void onPostExecute(String aVoid) {
+    protected void onPostExecute(JSONObject aVoid) {
         super.onPostExecute(aVoid);
         data.onDataListener(aVoid);
     }

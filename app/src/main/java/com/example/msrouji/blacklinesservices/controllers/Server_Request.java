@@ -14,23 +14,22 @@ import java.net.URL;
  * Created by msrouji on 17/11/2017.
  */
 
-public class Server_Request extends AsyncTask<String,Void,Object> {
+public class Server_Request extends AsyncTask<String, Void, Object> {
 
     private HttpURLConnection connection;
     private String method;
-    private Server_Listener end_data;
+    private ServerListener end_data;
 
-    public Server_Request(String method, String url, Server_Listener listener) throws java.io.IOException {
+    public Server_Request(String method, String url, ServerListener listener) throws java.io.IOException {
         try {
             this.method = method;
             connection = ((HttpURLConnection) new URL(url).openConnection());
             connection.setRequestMethod(method);
-            connection.setRequestProperty("Authorization", "JWT " + LoginActivity.token);
+            connection.setRequestProperty("Authorization", "JWT " + LoginActivity.getToken());
             if (method.equals("POST") || method.equals("PUT")) {
                 connection.setDoOutput(true);
                 connection.setDoInput(true);
             }
-            System.err.println("token "+LoginActivity.token);
             end_data = listener;
 
         } catch (java.io.IOException e) {
@@ -42,11 +41,13 @@ public class Server_Request extends AsyncTask<String,Void,Object> {
     @Override
     protected Object doInBackground(String... data) {
         try {
-            if (method.equals("PUT") || method.equals("POST")){
+            if (method.equals("PUT") || method.equals("POST")) {
 
                 OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-                writer.write(data[0]);
-                writer.flush();
+                if (data != null && data.length > 0) {
+                    writer.write(data[0]);
+                    writer.flush();
+                }
             }
 
             InputStreamReader reader = new InputStreamReader(connection.getInputStream());
@@ -62,6 +63,7 @@ public class Server_Request extends AsyncTask<String,Void,Object> {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         end_data.onDataListener(o);
+//        System.err.println("ssss " + o);
     }
 }
 

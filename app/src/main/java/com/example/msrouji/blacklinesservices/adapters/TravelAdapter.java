@@ -4,17 +4,15 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.Size;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.msrouji.blacklinesservices.R;
-import com.example.msrouji.blacklinesservices.models.Car;
-import com.squareup.picasso.Picasso;
+import com.example.msrouji.blacklinesservices.models.Booking;
+import com.example.msrouji.blacklinesservices.models.Travel;
 
 import java.util.ArrayList;
 
@@ -22,10 +20,10 @@ import java.util.ArrayList;
  * Created by msrouji on 17/11/2017.
  */
 
-public class Vehicle_Adapter extends ArrayAdapter<Car> {
-    private ArrayList<Car> data;
+public class TravelAdapter extends ArrayAdapter<Travel> {
+    private ArrayList<Travel> data;
 
-    public Vehicle_Adapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Car> objects) {
+    public TravelAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Travel> objects) {
         super(context, resource, objects);
         data = objects;
     }
@@ -37,7 +35,7 @@ public class Vehicle_Adapter extends ArrayAdapter<Car> {
 
     @Nullable
     @Override
-    public Car getItem(int position) {
+    public Travel getItem(int position) {
         return super.getItem(position);
     }
 
@@ -47,9 +45,9 @@ public class Vehicle_Adapter extends ArrayAdapter<Car> {
     }
 
     private class ViewHolder {
-        private TextView car_is_available;
-        private TextView car_registration;
-        private ImageView car_front;
+        private TextView start;
+        private TextView airport;
+        private TextView destination;
     }
 
     @NonNull
@@ -61,30 +59,24 @@ public class Vehicle_Adapter extends ArrayAdapter<Car> {
         if (convertView == null) {
             //Nous récupérons notre row_tweet via un LayoutInflater,
             //qui va charger un layout xml dans un objet View
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.custom_adapter_drivers, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.custom_adapter_travel, parent, false);
         }
 
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         if (viewHolder == null) {
             viewHolder = new ViewHolder();
-            viewHolder.car_is_available = (TextView) convertView.findViewById(R.id.car_is_available);
-            viewHolder.car_registration = (TextView) convertView.findViewById(R.id.car_registration);
-            viewHolder.car_front = (ImageView) convertView.findViewById(R.id.car_front);
+            viewHolder.start= convertView.findViewById(R.id.start);
+            viewHolder.airport= convertView.findViewById(R.id.airport);
+            viewHolder.destination= convertView.findViewById(R.id.destination);
+
             convertView.setTag(viewHolder);
         }
 
-        //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
-        Car car = getItem(position);
-        System.err.println(car);
+        Travel travel = getItem(position);
+        viewHolder.start.setText(travel.getStart());
+        viewHolder.airport.setText(travel.getAirport_obj().getAddress());
 
         //il ne reste plus qu'à remplir notre vue
-        if (car.getDriver() == null) {
-            viewHolder.car_is_available.setText("Disponible");
-        } else {
-            viewHolder.car_is_available.setText("Indisponible");
-        }
-        viewHolder.car_registration.setText(car.getRegistration());
-        Picasso.with(getContext()).load(car.getFront()).resize(100, 100).centerInside().into(viewHolder.car_front);
 
         //nous renvoyons notre vue à l'adapter, afin qu'il l'affiche
         //et qu'il puisse la mettre à recycler lorsqu'elle sera sortie de l'écran

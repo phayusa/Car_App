@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -32,7 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.msrouji.blacklinesservices.controllers.Server_Listener;
+import com.example.msrouji.blacklinesservices.controllers.ServerListener;
 import com.example.msrouji.blacklinesservices.controllers.TokenRefresh;
 
 import org.json.JSONException;
@@ -47,7 +46,6 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static android.Manifest.permission.INTERNET;
@@ -80,7 +78,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private static boolean in_Debug = false;
 
-    public static String token;
+    private static String token;
+    private static String name;
+    private static long car;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -250,17 +250,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //                cancel = true;
 //            }
 
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
-        }
+            if (cancel) {
+                // There was an error; don't attempt login and focus the first
+                // form field with an error.
+                focusView.requestFocus();
+            } else {
+                // Show a progress spinner, and kick off a background task to
+                // perform the user login attempt.
+                showProgress(true);
+                mAuthTask = new UserLoginTask(email, password);
+                mAuthTask.execute((Void) null);
+            }
     }
 
     private boolean isEmailValid(String email) {
@@ -363,12 +363,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    private class ReceiveToken implements Server_Listener{
+    private class ReceiveToken implements ServerListener {
         @Override
         public void onDataListener(Object o) {
             if (o == null)
                 return;
-            token = ((String) o);
+            try {
+                JSONObject object = ((JSONObject) o);
+                token = object.getString("token");
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return;
+            }
         }
     }
 
@@ -392,8 +398,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return true;
 
             try {
-                URL url = new URL(url_base+"user/login/");
-                System.err.println(url_base+"user/login/");
+                URL url = new URL(url_base + "db/login/");
+                System.err.println(url_base + "db/login/");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
@@ -424,12 +430,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     try {
                         JSONObject receiveJson = new JSONObject(buff.readLine());
                         token = receiveJson.getString("token");
-//                        System.err.println("token "+token);
-//                        responseString = " Welcome " + username;
+                        name = receiveJson.getString("fullname");
+                        car = receiveJson.getInt("car");
                     } catch (JSONException e) {
                         e.printStackTrace();
                         return false;
-                    } catch (NullPointerException n){
+                    } catch (NullPointerException n) {
                         n.printStackTrace();
                         return false;
                     }
@@ -438,24 +444,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
                 return true;
 
-            }catch (ProtocolException e){
+            } catch (ProtocolException e) {
                 e.printStackTrace();
                 return false;
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
             }
-
-//            for (String credential : DUMMY_CREDENTIALS) {
-//                String[] pieces = credential.split(":");
-//                if (pieces[0].equals(mEmail)) {
-//                    // Account exists, return true if the password matches.
-//                    return pieces[1].equals(mPassword);
-//                }
-//            }
-//
-//            // TODO: register the new account here.
-//            return true;
         }
 
         @Override
@@ -464,18 +459,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), MenuActivity.class));
 
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        handler.postDelayed(this, 30000); // every 5 minutes
-                        new TokenRefresh(new ReceiveToken()).execute(getString(R.string.url_server),token);
-
-                    }
-                }, 30000);
-//                finish();
+//                final Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        handler.postDelayed(this, 30000); // every 5 minutes
+//                        new TokenRefresh(new ReceiveToken()).execute(getString(R.string.url_server));
+//
+//                    }
+//                }, 30000);
+                finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
@@ -487,6 +482,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    public static String getToken() {
+        return token;
+    }
+
+    public static String getName() {
+        return name;
+    }
+
+    public static long getCar() {
+        return car;
+    }
+
+    public static void setCar(long car) {
+        LoginActivity.car = car;
     }
 }
 
