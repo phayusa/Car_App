@@ -29,7 +29,7 @@ public class Server_Detail_Request<T> {
         this.type = type;
 
         try {
-            new Server_Request("GET", url + id, new ListenerRequest()).execute();
+            new Server_Request("GET", url + id+"/", new ListenerRequest()).execute();
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }

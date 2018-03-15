@@ -47,7 +47,7 @@ public class TravelListFragment extends Fragment {
 
             Travel choose = ((Travel) adapterView.getItemAtPosition(i));
             Intent intent = new Intent(getActivity(), TravelDetailActivity.class);
-            intent.putExtra(key_extra_travel, choose);
+            MenuActivity.setTravel_choose(choose);
             startActivity(intent);
 
 //            MenuActivity.setTravel_choose((Travel) adapterView.getItemAtPosition(i));

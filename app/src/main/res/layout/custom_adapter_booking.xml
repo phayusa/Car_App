@@ -5,24 +5,16 @@
     android:layout_margin="@dimen/fab_margin"
     android:padding="@dimen/grid_padding">
 
-    <TextView
-        android:id="@+id/client_name"
-        android:layout_width="100sp"
-        android:layout_height="wrap_content"
-        android:text="Le Client"
-        android:textColor="@color/colorPrimaryDark" />
-
     <LinearLayout
-        android:layout_width="250sp"
+        android:layout_width="220sp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/depart"
-            android:layout_width="wrap_content"
+            android:id="@+id/client"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Aéroport Charles de Gaules"
+            android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"/>
 
         <TextView
@@ -30,9 +22,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="14 rue de Beauford "
             android:textColor="@color/colorPrimaryDark"/>
     </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="80sp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20sp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/travel_detail_distance"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:text="30 KM"
+            android:textColor="@color/colorPrimaryDark"/>
+    </LinearLayout>
+
 
     <!--<LinearLayout-->
         <!--android:layout_width="wrap_content"-->

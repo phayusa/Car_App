@@ -9,7 +9,7 @@
 
 
     <!-- Strings related to server location -->
-    <string name="url_server">http://192.168.0.109:1234/</string>
+    <string name="url_server">http://10.53.9.12:8000/</string>
 
     <!-- Strings related to menu -->
     <string name="menu_drive">Courses</string>
@@ -38,6 +38,8 @@
     <!-- Strings related to travel list -->
     <string name="travel_list_start">Départ prévue </string>
 
+    <!-- Strings related to travel detail -->
+    <string name="travel_detail_distance">Distance :</string>
 
 
     <!-- Strings related to login -->

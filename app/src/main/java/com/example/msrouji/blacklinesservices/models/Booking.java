@@ -10,9 +10,10 @@ public class Booking {
     private Long id;
     private String airport;
     private String destination;
+    private String destination_location;
     private Date date;
     private Long client;
-    private String client_name;
+    private Client client_obj;
     private Integer passengers;
     private Integer luggage_number;
     private Long distance;
@@ -71,5 +72,21 @@ public class Booking {
 
     public void setDistance(Long distance) {
         this.distance = distance;
+    }
+
+    public String getDestination_location() {
+        return destination_location;
+    }
+
+    public void setDestination_location(String destination_location) {
+        this.destination_location = destination_location;
+    }
+
+    public Client getClient_obj() {
+        return client_obj;
+    }
+
+    public void setClient_obj(Client client_obj) {
+        this.client_obj = client_obj;
     }
 }

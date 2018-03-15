@@ -14,6 +14,7 @@ import com.example.msrouji.blacklinesservices.controllers.ServerListener;
 import com.example.msrouji.blacklinesservices.controllers.Server_Detail_Request;
 import com.example.msrouji.blacklinesservices.models.Booking;
 import com.example.msrouji.blacklinesservices.models.Car;
+import com.example.msrouji.blacklinesservices.models.Client;
 import com.example.msrouji.blacklinesservices.models.Travel;
 
 import java.util.ArrayList;
@@ -31,8 +32,8 @@ public class TravelDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getIntent() == null)
-            finish();
+//        if (getIntent() == null)
+//            finish();
 
         setContentView(R.layout.activity_travel_detail);
 
@@ -40,8 +41,11 @@ public class TravelDetailActivity extends AppCompatActivity {
         setToolbar();
 
 
-        selectedTravel = ((Travel) getIntent().getSerializableExtra(TravelListFragment.key_extra_travel));
+//        selectedTravel = ((Travel) getIntent().getSerializableExtra(TravelListFragment.key_extra_travel));
+        selectedTravel = MenuActivity.getTravel_choose();
         selectedTravel.setBookings_obj(new ArrayList<>());
+
+        GetBookingsInfo();
 
 
     }
@@ -51,16 +55,14 @@ public class TravelDetailActivity extends AppCompatActivity {
         int lastIndex = sizeArray - 1;
         for (int index = 0; index < sizeArray; index++) {
             int id_booking = selectedTravel.getBookings().get(index).intValue();
-            new Server_Detail_Request<Booking>(new UpdateInfoListener(index, lastIndex == index), getString(R.string.url_server) + "db/booking/", id_booking, Booking.class);
+            new Server_Detail_Request<Booking>(new UpdateInfoListener(lastIndex == index), getString(R.string.url_server) + "db/booking/", id_booking, Booking.class);
         }
     }
 
     private class UpdateInfoListener implements ServerListener {
-        private int id;
         private boolean last;
 
-        public UpdateInfoListener(int id, boolean last) {
-            this.id = id;
+        private UpdateInfoListener(boolean last) {
             this.last = last;
         }
 
@@ -68,10 +70,32 @@ public class TravelDetailActivity extends AppCompatActivity {
         public void onDataListener(Object o) {
             if (o == null) {
                 Toast.makeText(getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
-//                finish();
                 return;
             }
             Booking booking = ((Booking) o);
+            new Server_Detail_Request<Client>(new UpdateClientBooking(booking, last), getString(R.string.url_server) + "db/client/", booking.getClient().intValue(), Client.class);
+
+        }
+    }
+
+    private class UpdateClientBooking implements ServerListener {
+        private Booking booking;
+        private boolean last;
+
+        private UpdateClientBooking(Booking booking, boolean last) {
+            this.booking = booking;
+            this.last = last;
+        }
+
+        @Override
+        public void onDataListener(Object o) {
+            if (o == null) {
+                Toast.makeText(getApplicationContext(), "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            Client client = ((Client) o);
+            booking.setClient_obj(client);
             selectedTravel.getBookings_obj().add(booking);
             if (last) {
                 BookingAdapter bookingAdapter = new BookingAdapter(getApplicationContext(), R.layout.drive_fragment,
@@ -82,6 +106,7 @@ public class TravelDetailActivity extends AppCompatActivity {
             }
         }
     }
+
 
     private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

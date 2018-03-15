@@ -47,7 +47,9 @@ public class BookingAdapter extends ArrayAdapter<Booking> {
     }
 
     private class ViewHolder {
-        private TextView client_name;
+        private TextView destination;
+        private TextView client;
+        private TextView distance;
     }
 
     @NonNull
@@ -65,22 +67,18 @@ public class BookingAdapter extends ArrayAdapter<Booking> {
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         if (viewHolder == null) {
             viewHolder = new ViewHolder();
-            viewHolder.client_name= (TextView) convertView.findViewById(R.id.client_name);
+            viewHolder.client = convertView.findViewById(R.id.client);
+            viewHolder.destination = convertView.findViewById(R.id.destination);
+            viewHolder.distance = convertView.findViewById(R.id.distance);
             convertView.setTag(viewHolder);
         }
 
         //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
         Booking booking = getItem(position);
 
-        //il ne reste plus qu'à remplir notre vue
-//        if (car.getDriver() == null) {
-//            viewHolder.car_is_available.setText("Disponible");
-//        } else {
-//            viewHolder.car_is_available.setText("Indisponible");
-//        }
-//        viewHolder.car_registration.setText(car.getRegistration());
-        viewHolder.client_name.setText(booking.getDestination());
-//        Picasso.with(getContext()).load(car.getFront()).resize(100, 100).centerInside().into(viewHolder.car_front);
+        viewHolder.client.setText(booking.getClient_obj().getFirst_name() + " " + booking.getClient_obj().getLast_name());
+        viewHolder.destination.setText(booking.getDestination());
+        viewHolder.distance.setText(booking.getDistance().toString() + "KM");
 
         //nous renvoyons notre vue à l'adapter, afin qu'il l'affiche
         //et qu'il puisse la mettre à recycler lorsqu'elle sera sortie de l'écran
