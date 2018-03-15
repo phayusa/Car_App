@@ -88,4 +88,8 @@ public class Car implements Serializable {
     public String getBack() {
         return back;
     }
+
+    public void setPos(String pos) {
+        this.pos = pos;
+    }
 }

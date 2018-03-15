@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -15,12 +14,10 @@ import com.example.msrouji.blacklinesservices.adapters.BookingAdapter;
 import com.example.msrouji.blacklinesservices.controllers.ServerListener;
 import com.example.msrouji.blacklinesservices.controllers.Server_Detail_Request;
 import com.example.msrouji.blacklinesservices.models.Booking;
-import com.example.msrouji.blacklinesservices.models.Car;
 import com.example.msrouji.blacklinesservices.models.Client;
 import com.example.msrouji.blacklinesservices.models.Travel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by sokomo on 05/03/18.

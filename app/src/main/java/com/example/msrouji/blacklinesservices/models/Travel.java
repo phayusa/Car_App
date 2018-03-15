@@ -1,7 +1,5 @@
 package com.example.msrouji.blacklinesservices.models;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 

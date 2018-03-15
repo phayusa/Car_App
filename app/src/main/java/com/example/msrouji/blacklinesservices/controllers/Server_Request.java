@@ -63,7 +63,6 @@ public class Server_Request extends AsyncTask<String, Void, Object> {
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
         end_data.onDataListener(o);
-//        System.err.println("ssss " + o);
     }
 }
 

@@ -19,16 +19,16 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.msrouji.blacklinesservices.controllers.Server_Request;
+import com.example.msrouji.blacklinesservices.models.Car;
 import com.example.msrouji.blacklinesservices.models.Travel;
+import com.google.gson.Gson;
 
 public class MenuActivity extends AppCompatActivity {
 
     protected TextView mTextMessage;
     protected BottomNavigationView bottomNavigationView;
     protected NavigationView navigationView;
-
-//    private final Fragment account = new AccountFragment();
-//    private final Fragment home = new HomeFragment();
 
     private Location lastKnownLocation;
     private static Travel travel_choose;
@@ -80,8 +80,22 @@ public class MenuActivity extends AppCompatActivity {
         // Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
-                if (location != null)
+
+                if (location != null) {
                     lastKnownLocation = location;
+                    if (LoginActivity.getCar() != -1)
+                        try {
+                            Gson gson = new Gson();
+                            Car car = new Car();
+                            car.setId(LoginActivity.getCar());
+                            car.setPos(location.toString());
+
+                            new Server_Request("PUT", getString(R.string.url_server) + "db/vehicle/" + LoginActivity.getCar() + "/", (o -> {
+                            })).execute(gson.toJson(car));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                }
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {

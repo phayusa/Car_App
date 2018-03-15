@@ -80,17 +80,12 @@ public class HomeFragment extends Fragment {
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
             //Initialize Google Play Services
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(getContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION)
-                        == PackageManager.PERMISSION_GRANTED) {
-                    buildGoogleApiClient();
-                    mMap.setMyLocationEnabled(true);
-
-                }
-            } else {
+            if (ContextCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
                 mMap.setMyLocationEnabled(true);
+
             }
 
             mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
@@ -154,7 +149,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permission, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permission, @NonNull int[] grantResults) {
         if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
             // If request is cancelled, the result arrays are empty.
             if (grantResults.length > 0

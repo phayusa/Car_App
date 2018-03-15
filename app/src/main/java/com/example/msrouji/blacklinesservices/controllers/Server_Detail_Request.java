@@ -1,18 +1,6 @@
 package com.example.msrouji.blacklinesservices.controllers;
 
-import android.widget.Toast;
-
-import com.example.msrouji.blacklinesservices.R;
-import com.example.msrouji.blacklinesservices.TravelListFragment;
-import com.example.msrouji.blacklinesservices.adapters.TravelAdapter;
-import com.example.msrouji.blacklinesservices.models.Car;
-import com.example.msrouji.blacklinesservices.models.Travel;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by msrouji on 14/03/2018.

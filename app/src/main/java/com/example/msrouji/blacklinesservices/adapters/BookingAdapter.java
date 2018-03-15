@@ -8,13 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.msrouji.blacklinesservices.R;
 import com.example.msrouji.blacklinesservices.models.Booking;
-import com.example.msrouji.blacklinesservices.models.Car;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 

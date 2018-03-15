@@ -1,7 +1,6 @@
 package com.example.msrouji.blacklinesservices;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,14 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.msrouji.blacklinesservices.adapters.BookingAdapter;
 import com.example.msrouji.blacklinesservices.adapters.TravelAdapter;
 import com.example.msrouji.blacklinesservices.controllers.ServerListener;
 import com.example.msrouji.blacklinesservices.controllers.Server_Detail_Request;
 import com.example.msrouji.blacklinesservices.controllers.Server_Request;
 import com.example.msrouji.blacklinesservices.models.Airport;
-import com.example.msrouji.blacklinesservices.models.Booking;
-import com.example.msrouji.blacklinesservices.models.Car;
 import com.example.msrouji.blacklinesservices.models.Travel;
 import com.google.gson.Gson;
 
@@ -49,13 +45,6 @@ public class TravelListFragment extends Fragment {
             Intent intent = new Intent(getActivity(), TravelDetailActivity.class);
             MenuActivity.setTravel_choose(choose);
             startActivity(intent);
-
-//            MenuActivity.setTravel_choose((Travel) adapterView.getItemAtPosition(i));
-//            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TravelDetailFragment()).commit();
-
-//            Booking selected_booking = ((Booking) adapterView.getItemAtPosition(i));
-//            String uri = "https://waze.com/ul?ll=" + selected_booking.getDestination() + "&navigate=yes";
-//            startActivity(new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri)));
         }
     }
 
@@ -68,10 +57,9 @@ public class TravelListFragment extends Fragment {
             }
             if (o.equals("Bad Request")) {
                 Toast.makeText(getActivity().getApplicationContext(), "Sélectionner une voiture avant", Toast.LENGTH_SHORT).show();
-//                finish();
+                return;
             }
 
-//            System.err.println(o.toString());
             Travel[] bookings = gson.fromJson(o.toString(), Travel[].class);
             UpdateTravelAirportDetail(bookings);
 

@@ -3,7 +3,6 @@ package com.example.msrouji.blacklinesservices.controllers;
 import android.os.AsyncTask;
 
 import com.example.msrouji.blacklinesservices.LoginActivity;
-import com.example.msrouji.blacklinesservices.MenuActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,10 +48,7 @@ public class TokenRefresh extends AsyncTask<String, Void, JSONObject> {
 
             return new JSONObject(buff.readLine());
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
             return null;
         }

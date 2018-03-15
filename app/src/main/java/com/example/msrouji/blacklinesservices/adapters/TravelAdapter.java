@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.msrouji.blacklinesservices.R;
-import com.example.msrouji.blacklinesservices.models.Booking;
 import com.example.msrouji.blacklinesservices.models.Travel;
 
 import java.util.ArrayList;

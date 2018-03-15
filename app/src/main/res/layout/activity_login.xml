@@ -88,7 +88,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:clickable="true"
-                    android:text="@string/action_forgot_password" />
+                    android:text="@string/action_forgot_password"
+                    android:focusable="true" />
 
             </LinearLayout>
         </LinearLayout>
