@@ -1,5 +1,7 @@
 package com.example.msrouji.blacklinesservices;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -32,16 +34,12 @@ public class TravelDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getIntent() == null)
-//            finish();
 
         setContentView(R.layout.activity_travel_detail);
 
         list = findViewById(android.R.id.list);
         setToolbar();
 
-
-//        selectedTravel = ((Travel) getIntent().getSerializableExtra(TravelListFragment.key_extra_travel));
         selectedTravel = MenuActivity.getTravel_choose();
         selectedTravel.setBookings_obj(new ArrayList<>());
 
@@ -102,6 +100,11 @@ public class TravelDetailActivity extends AppCompatActivity {
                         selectedTravel.getBookings_obj());
 
                 list.setAdapter(bookingAdapter);
+                list.setOnItemClickListener(((adapterView, view, i, l) -> {
+                    Booking booking = ((Booking) adapterView.getItemAtPosition(i));
+                    String uri = "https://waze.com/ul?ll=" + booking.getDestination_location() + "&navigate=yes";
+                    startActivity(new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri)));
+                }));
 //                list.setOnItemClickListener(new list_adapter_listener());
             }
         }
