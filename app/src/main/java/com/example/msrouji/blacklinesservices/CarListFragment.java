@@ -39,7 +39,7 @@ public class CarListFragment extends android.support.v4.app.Fragment {
         CarActivity.setCurrentFrag(1);
 
         try {
-            new Server_Request("GET", getString(R.string.url_server) + "db/vehicles/", new list_loader()).execute();
+            new Server_Request("GET", getString(R.string.url_server) + "db/api/vehicles/", new list_loader()).execute();
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
