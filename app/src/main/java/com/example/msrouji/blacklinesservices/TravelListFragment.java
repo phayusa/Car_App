@@ -1,6 +1,8 @@
 package com.example.msrouji.blacklinesservices;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -87,6 +89,7 @@ public class TravelListFragment extends Fragment {
         }
 
         // Tranform the datetime format into lookable format
+        @TargetApi(Build.VERSION_CODES.O)
         private String GetTimeNewFormat(String DateTime) {
             // Convert time into Instant object
             Instant instant = Instant.parse(DateTime);

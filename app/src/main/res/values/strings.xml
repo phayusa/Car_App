@@ -9,7 +9,7 @@
 
 
     <!-- Strings related to server location -->
-    <string name="url_server">http://10.53.9.12:8000/</string>
+    <string name="url_server">http://192.168.0.103:8000/</string>
 
     <!-- Strings related to menu -->
     <string name="menu_drive">Courses</string>

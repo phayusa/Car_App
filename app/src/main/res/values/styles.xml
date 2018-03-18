@@ -10,7 +10,6 @@
         @color/colorPrimaryDark
         @color/colorPrimaryDark
         @color/colorPrimaryDark
-        <item name="colorAccent">@android:color/holo_red_dark</item>
         <item name="android:textColorPrimaryInverse">@color/colorTextInvert</item>
         <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
     </style>

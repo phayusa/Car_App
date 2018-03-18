@@ -71,7 +71,8 @@ public class CarListFragment extends android.support.v4.app.Fragment {
                 list.setOnItemClickListener(new list_adapter_listener());
             }catch (Exception e){
                 e.printStackTrace();
-                getActivity().finish();
+                if (getActivity() != null)
+                    getActivity().finish();
             }
 
         }

@@ -25,7 +25,8 @@
         android:roundIcon="@mipmap/logo_no_font"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="@xml/backup_descriptor">
 
         <provider
             android:name=".GenericFileProvider"

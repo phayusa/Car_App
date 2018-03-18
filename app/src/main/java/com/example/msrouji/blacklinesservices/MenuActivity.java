@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,18 +81,15 @@ public class MenuActivity extends AppCompatActivity {
         // Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
-
                 if (location != null) {
                     lastKnownLocation = location;
                     if (LoginActivity.getCar() != -1)
                         try {
-                            Gson gson = new Gson();
-                            Car car = new Car();
-                            car.setId(LoginActivity.getCar());
-                            car.setPos(location.toString());
+                            String json = "{\"id\":" + LoginActivity.getCar() + ",\"pos\":\"" + location.getLatitude() + "," + location.getLongitude() + "\"}";
 
+                            System.err.println(json);
                             new Server_Request("PUT", getString(R.string.url_server) + "db/vehicle/" + LoginActivity.getCar() + "/", (o -> {
-                            })).execute(gson.toJson(car));
+                            })).execute(json);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

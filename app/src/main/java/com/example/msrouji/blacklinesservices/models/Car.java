@@ -16,7 +16,6 @@ public class Car implements Serializable {
 
     private String pos;
 
-    private long revenues;
     private int empty_places;
 
     private long area;
@@ -55,10 +54,6 @@ public class Car implements Serializable {
 
     public String getPos() {
         return pos;
-    }
-
-    public long getRevenues() {
-        return revenues;
     }
 
     public int getEmpty_places() {

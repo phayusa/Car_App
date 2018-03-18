@@ -36,7 +36,8 @@
                     android:foregroundGravity="center"
                     app:srcCompat="@drawable/driver"
                     tools:layout_editor_absoluteX="164dp"
-                    tools:layout_editor_absoluteY="8dp" />
+                    tools:layout_editor_absoluteY="8dp"
+                    android:contentDescription="Driver_Img" />
 
                 <TextView
                     android:id="@+id/driver"
